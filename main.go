@@ -107,7 +107,7 @@ func countToX(w http.ResponseWriter, r *http.Request) {
 }
 
 /**
- * gracefulFailure function - Will return a custom message is page is not found that is on theme
+ * gracefulFailure function - Will return a custom message for page not found (404) that is on theme
  */
 func gracefulFailure(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "ANSWERING MACHINE: The office is closed today for the Michael Scott's Dunder Mifflin Scranton Meredith Palmer Memorial Celebrity Rabies Awareness Pro-am Fun Run Race For The Cure. Please try again another time.")
@@ -120,9 +120,8 @@ func main() {
   // Our count-to-x path
   router.HandleFunc("/count-to-x", countToX).Methods("POST")
 
-  router.NotFoundHandler = http.HandlerFunc(gracefulFailure)
-
   // Reject all others gracefully
+  router.NotFoundHandler = http.HandlerFunc(gracefulFailure)
 
   http.ListenAndServe(":8000", router)
 }
